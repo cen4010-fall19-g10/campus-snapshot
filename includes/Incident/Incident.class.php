@@ -10,12 +10,16 @@ class Incident
 
     private $username;
 
+    private $comments;
+
     public function __construct($user_id = null, $username = null, $title = null, $image_name = null, $description = null, $incident_id = null) {
         $this->title = $title;
         $this->username = $username;
         $this->image_name = $image_name;
         $this->incident_id = $incident_id;
         $this->description = $description;
+
+        $this->comments = array();
     }
 
     public function create_incident($user_id, $title, $img_filename, $description) {
@@ -32,6 +36,18 @@ class Incident
         $stmt->execute();
     }
 
+    public function load_comments() {
+        $stmt = Database::connection()->query("SELECT comments.id, comments.post_id, comments.user_id, comments.comment, users.username FROM comments INNER JOIN users ON comments.user_id = users.id WHERE post_id='" . $this->incident_id . "'");
+        while ($row = $stmt->fetch()) {
+            $comment = new Comment($row['id'], $row['post_id'], $row['user_id'], $row['comment'], $row['username']);
+            array_push($this->comments, $comment);
+        }
+    }
+
+    public function get_comments() {
+        return $this->comments;
+    }
+
     public function get_incident($incident_id) {
         $stmt = Database::connection()->prepare("SELECT incidents.id AS inc_id, incidents.user_id, incidents.title, incidents.img_filename, incidents.description, users.username FROM incidents INNER JOIN users ON incidents.user_id = users.id  WHERE incidents.id= ? ");
         $stmt->bindParam(1, $incident_id);
@@ -40,6 +56,7 @@ class Incident
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $incident = new Incident($row['user_id'], $row['username'], $row['title'], $row['img_filename'], $row['description'], $row['inc_id']);
+        $incident->load_comments();
 
         return $incident;
     }

@@ -50,18 +50,16 @@ $incident = $incident->get_incident($_GET['id']);
     <input type="submit" value="Post comment">
 </form>
 
-
-
 <?php
-foreach($comment->get_comments($_GET['id']) as $i) { ?>
+foreach($incident->get_comments() as $comment) { ?>
 
     <table border="1">
         <tr>
             <td>
-                <?php echo $i->get_username(); ?>
+                <?php echo $comment->get_username(); ?>
             </td>
             <td>
-                <?php echo $i->get_comment(); ?>
+                <?php echo $comment->get_comment(); ?>
             </td>
         </tr>
     </table>

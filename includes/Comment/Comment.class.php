@@ -29,18 +29,6 @@ class Comment
         $stmt->execute();
     }
 
-    public function get_comments($post_id) {
-
-        $comments = array();
-        $stmt = Database::connection()->query("SELECT comments.id, comments.post_id, comments.user_id, comments.comment, users.username FROM comments INNER JOIN users ON comments.user_id = users.id WHERE post_id='" . $post_id . "'");
-        while ($row = $stmt->fetch()) {
-            $comment = new Comment($row['id'], $row['post_id'], $row['user_id'], $row['comment'], $row['username']);
-            array_push($comments, $comment);
-        }
-
-        return $comments;
-    }
-
     public function get_username() {
         return $this->username;
     }
