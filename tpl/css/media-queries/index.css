@@ -1,0 +1,36 @@
+@media only screen and (min-width: 805px) and (max-width: 860px){ 
+    .container {
+        width:800px;
+        margin-top:60px;
+    }
+
+    #left-column {
+        width:500px;
+    }
+    
+    #right-column {
+        width:300px;
+    }
+ }
+
+ @media only screen and (min-width: 0px) and (max-width: 805px){ 
+    .container {
+        width:90%;
+        margin: 0 auto;
+        margin-top:60px;
+        margin-bottom:5px;
+    }
+
+    #left-column {
+        width:100%;
+        padding-right: 0px;
+    }
+
+    .left-column-card {
+        margin-right:0px;
+    }
+    
+    #right-column {
+        display:none;
+    }
+ }
