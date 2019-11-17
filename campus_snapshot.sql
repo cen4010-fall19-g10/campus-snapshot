@@ -89,19 +89,21 @@ INSERT INTO `schools` (`id`, `name`) VALUES
 -- Table structure for table `users`
 --
 
+-- added isModerator field
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(250) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `school_id` int(11) NOT NULL
+  `school_id` int(11) NOT NULL,
+  `isModerator` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `school_id`) VALUES
-(3, 'josh', '$2y$10$/LcOkCBide/VtX.JuBAjCevPYnD/pIPY83kQLRcGj5i7fa4pYD1KO', 1);
+INSERT INTO `users` (`id`, `username`, `password`, `school_id`, `isModerator`) VALUES
+(3, 'josh', '$2y$10$/LcOkCBide/VtX.JuBAjCevPYnD/pIPY83kQLRcGj5i7fa4pYD1KO', 1, 0);
 
 --
 -- Indexes for dumped tables

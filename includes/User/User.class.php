@@ -14,6 +14,7 @@ class User {
         $this->id = $_SESSION['id'];
         $this->schoolId = $_SESSION['school_id'];
         $this->logged_in = $_SESSION['logged_in'];
+        $this->isModerator = $_SESSION['isModerator'];  
       }
     }
   }
@@ -37,7 +38,7 @@ class User {
   public function getSchoolId() {
     return $this->schoolId;
   }
-
+  
   private function username_exists($username) {
     $stmt = Database::connection()->prepare("SELECT COUNT(username) AS num FROM users WHERE username = ?");
     $stmt->bindParam(1, $username);
@@ -65,15 +66,17 @@ class User {
       $_SESSION['username'] = $username;
       $_SESSION['school_id'] = $user["school_id"];
       $_SESSION['logged_in'] = true;
+          
       return true;
     }
 
     return false;
   }
+    
+  //added ability to set moderator status
+  public function register($username, $password, $school_id, $isModerator) {
 
-  public function register($username, $password, $school_id) {
-
-    if(empty($username) || empty($password) || empty($school_id))
+    if(empty($username) || empty($password) || empty($school_id) || empty($isModerator))
       throw new Exception('A required field was empty');
 
     /* Trim leading and trailing whitespace */
@@ -87,16 +90,24 @@ class User {
       throw new Exception('Username already exists');
 
     /* Insert the user into the database */
-    $stmt = Database::connection()->prepare("INSERT INTO users SET username = ? , password = ? , school_id = ?");
+    //changed table adding isModerator column
+    $stmt = Database::connection()->prepare("INSERT INTO users SET username = ? , password = ? , school_id = ?, isModerator = ?");
     $stmt->bindParam(1, $username);
     $stmt->bindParam(2, $password);
     $stmt->bindParam(3, $school_id);
+    $stmt->bindParam(4, $isModerator);
     $stmt->execute();
 
     /* Set the current User instance variables */
     $this->id = Database::connection()->lastInsertId();
     $this->username = $username;
     $this->schoolId = $school_id;
-    $this->isModerator = false;
+    $this->isModerator = $isModerator;
   }
+
+  public function isModerator(){
+      return $this->isModerator;
+  }
+    
 } ?>
+

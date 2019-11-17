@@ -60,6 +60,14 @@ class Incident
 
         return $incident;
     }
+    
+    //added incident deletion
+    public function delete_incident($incident_id)
+    {
+        $stmt = Database::connection()->prepare("DELETE FROM incidents WHERE incidents.id= ? ");
+        $stmt->bindParam(1, $incident_id);
+        $stmt->execute(); 
+    }
 
 
     public function get_username() {
