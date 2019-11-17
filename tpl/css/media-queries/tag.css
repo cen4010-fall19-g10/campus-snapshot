@@ -1,0 +1,18 @@
+.user-profile-card {
+    width:100%;
+}
+
+.user-profile-card #profile-pic, #profile-pic img {
+    display:inline;
+    width: 50px;
+    border-radius: 10%;
+    vertical-align: middle;
+}
+.user-profile-card #username {
+    display:inline;
+    vertical-align: middle;    font-family: 'Roboto';
+    text-align:center;
+    font-size: .8em;
+    color: #000;
+    text-transform:uppercase;
+}
