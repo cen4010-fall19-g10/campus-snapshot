@@ -16,7 +16,7 @@ if(!$user->is_logged_in()) {
 <body>
   <form method="post" action="includes/remove_post.php">
 
-      Enter ID of incident to be removed:<input type="text" name="Incident ID" />
+      Enter ID of incident to be removed:<input type="text" name="incidentid" />
       <br />
       <input type="submit" value="Remove">
   </form>

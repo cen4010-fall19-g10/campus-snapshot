@@ -6,7 +6,7 @@ include("includes/User/User.class.php");
 
 $user = new User();
 if($user->is_logged_in()) {
-    header('Location: incidents.php');
+  header('Location: incidents.php');
 }
 ?>
 

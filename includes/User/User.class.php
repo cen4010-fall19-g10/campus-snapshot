@@ -14,7 +14,7 @@ class User {
         $this->id = $_SESSION['id'];
         $this->schoolId = $_SESSION['school_id'];
         $this->logged_in = $_SESSION['logged_in'];
-        $this->isModerator = $_SESSION['isModerator'];  
+        $this->isModerator = $_SESSION['isModerator'];
       }
     }
   }
@@ -38,7 +38,7 @@ class User {
   public function getSchoolId() {
     return $this->schoolId;
   }
-  
+
   private function username_exists($username) {
     $stmt = Database::connection()->prepare("SELECT COUNT(username) AS num FROM users WHERE username = ?");
     $stmt->bindParam(1, $username);
@@ -55,7 +55,7 @@ class User {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    $stmt = Database::connection()->prepare('SELECT id, school_id, password FROM users WHERE username = ?');
+    $stmt = Database::connection()->prepare('SELECT id, school_id, password, isModerator FROM users WHERE username = ?');
     $stmt->bindParam(1, $username);
     $stmt->execute();
     $user = $stmt->fetch();
@@ -66,17 +66,18 @@ class User {
       $_SESSION['username'] = $username;
       $_SESSION['school_id'] = $user["school_id"];
       $_SESSION['logged_in'] = true;
-          
+      $_SESSION['isModerator'] = $user["isModerator"];
+
       return true;
     }
 
     return false;
   }
-    
-  //added ability to set moderator status
-  public function register($username, $password, $school_id, $isModerator) {
 
-    if(empty($username) || empty($password) || empty($school_id) || empty($isModerator))
+
+  public function register($username, $password, $school_id) {
+
+    if(empty($username) || empty($password) || empty($school_id))
       throw new Exception('A required field was empty');
 
     /* Trim leading and trailing whitespace */
@@ -91,23 +92,25 @@ class User {
 
     /* Insert the user into the database */
     //changed table adding isModerator column
-    $stmt = Database::connection()->prepare("INSERT INTO users SET username = ? , password = ? , school_id = ?, isModerator = ?");
+    $stmt = Database::connection()->prepare("INSERT INTO users SET username = ? , password = ? , school_id = ?, isModerator = 0");
     $stmt->bindParam(1, $username);
     $stmt->bindParam(2, $password);
     $stmt->bindParam(3, $school_id);
-    $stmt->bindParam(4, $isModerator);
     $stmt->execute();
 
     /* Set the current User instance variables */
     $this->id = Database::connection()->lastInsertId();
     $this->username = $username;
     $this->schoolId = $school_id;
-    $this->isModerator = $isModerator;
+    $this->isModerator = 0;
   }
 
   public function isModerator(){
-      return $this->isModerator;
+      if ($this->isModerator == 1)
+      {
+        return true;
+      }
+      else return false;
   }
-    
-} ?>
 
+} ?>

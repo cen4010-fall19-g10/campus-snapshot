@@ -13,9 +13,11 @@ include("User/User.class.php");
 $user = new User();
 
 if($user->login($_POST['username'], $_POST['password'])) {
-  header('Location: /');
+  //header('Location: /');
+  echo('Logged in!');
 } else {
-  header('Location: /'); // error message
+  //header('Location: /'); // error message
+  echo('Not logged in correctly.');
 }
 
 ?>

@@ -10,16 +10,15 @@ $user = new User();
 $incident = new Incident();
 $incident_id = $_POST['incidentid'];
 if(!$user->is_logged_in()) {
-    header('Location: /');
+    die('log in please :^)');
 }
 
 if(!$user->isModerator())
 {
-    die("User does not have permission to remove incidents.");
+    echo("User does not have permission to remove incidents.");
 }
-else
-{
-    $incident->remove_incident($incident_id);
+else {
+    $incident->delete_incident($incident_id);
     echo("Incident removed.");
 }
 

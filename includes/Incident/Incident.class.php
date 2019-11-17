@@ -60,13 +60,20 @@ class Incident
 
         return $incident;
     }
-    
-    //added incident deletion
+
+
+    public function set_inactive($incident_id)
+    {
+        $stmt = Database::connection()->prepare("UPDATE incidents set active = 0 WHERE id = ? ");
+        $stmt->bindParam(1, $incident_id);
+        $stmt->execute();
+    }
+
     public function delete_incident($incident_id)
     {
-        $stmt = Database::connection()->prepare("DELETE FROM incidents WHERE incidents.id= ? ");
-        $stmt->bindParam(1, $incident_id);
-        $stmt->execute(); 
+      $stmt = Database::connection()->prepare("DELETE FROM incidents WHERE incidents.id= ? ");
+      $stmt->bindParam(1,$incident_id);
+      $stmt->execute();
     }
 
 
