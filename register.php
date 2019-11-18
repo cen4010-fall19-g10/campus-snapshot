@@ -14,17 +14,32 @@ if($user->is_logged_in()) {
 <html>
   <head>
     <title>Campus Snapshot</title>
+      <head>
+    <title>Campus Snapshot</title>
+    <link rel="stylesheet" type="text/css" href="tpl/css/register.css">
+  </head>
   </head>
 
   <body>
-
+      <div class="wrapper">
+      <nav id="header" style="height: 100px;">
+         <div class="wrapper">
+            <div class="logo">
+                <img class="logo-fau" src="tpl/css/index-images/campus_snapshot5.png" width="1000" height="200">
+            </div>
+         </div>
+    </nav> 
   <form method="post" action="includes/process_registration.php">
-
-      Username: <input type="text" name="username" />
-      <br />
-      Password: <input type="password" name="password" />
-      <br />
-      School: <select name="school_id">
+       <div class="boxed">
+        Username: <input type="text" name="username" />
+        <br />
+    </div>
+     <div class="boxed2">
+        Password: <input type="password" name="password" />
+        <br />
+    </div>
+      <div class="register">
+        School: <select name="school_id">
                 <?php
                   $stmt = Database::connection()->query("SELECT * FROM schools");
                   while ($row = $stmt->fetch()) {
@@ -33,9 +48,13 @@ if($user->is_logged_in()) {
                 ?>
               </select>
       <br />
+      </div>
+      
       <input type="submit" value="Register">
 
   </form>
+      </div>
 
   </body>
   </html>
+
