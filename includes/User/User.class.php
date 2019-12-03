@@ -4,7 +4,7 @@ class User {
   private $username;
   private $id;
   private $schoolId;
-  private $isModerator;
+  private $official;
   private $logged_in;
 
   public function __construct() {

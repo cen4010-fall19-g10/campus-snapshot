@@ -8,5 +8,5 @@ if($user->is_logged_in()) {
     $user->logout();
 }
 
-header('Location: /');
+header('Location: index.php');
 ?>

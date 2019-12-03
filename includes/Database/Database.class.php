@@ -3,10 +3,10 @@ class Database
 {
   private static $instance = null;
   private $db;
-  private $host = 'localhost';
-  private $username = 'root';
+  private $host = '';
+  private $username = '';
   private $password = '';
-  private $database = 'campus_snapshot';
+  private $database = '';
 
   private function __construct()
   {

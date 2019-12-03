@@ -9,7 +9,7 @@ $user = new User();
 $incident = new Incident();
 
 if(!$user->is_logged_in()) {
-    header('Location: /');
+    header('Location: ../index.php');
 }
 
 $title = trim($_POST['title']);
@@ -56,7 +56,7 @@ if ($uploadOk == 0) {
         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
 
         $incident->create_incident($user->getId(), $title, $image_name, $desc);
-        header('Location: /');
+        header('Location: ../index.php');
 
     } else {
         echo "Sorry, there was an error uploading your file.";

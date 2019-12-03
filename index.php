@@ -8,39 +8,34 @@ $user = new User();
 if($user->is_logged_in()) {
     header('Location: incidents.php');
 }
+
+$page = array("title"=>"Campus Snapshot: An online platform to report, view, and discuss campus incidents.",
+              "styles"=>array("floating-labels.css"));
+
+include('tpl/header.php');
 ?>
 
-
-<html>
-  <head>
-    <title>Campus Snapshot</title>
-    <link rel="stylesheet" type="text/css" href="tpl/css/index.css">
-  </head>
-
   <body>
-    <div class="wrapper">
-      <nav id="header" style="height: 100px;">
-         <div class="wrapper">
-            <div class="logo">
-                <img class="logo-fau" src="tpl/css/index-images/campus_snapshot5.png" width="1000" height="200">
-            </div>
-         </div>
-    </nav> 
-
-  <form method="post" action="includes/process_login.php">
-    <div class="boxed">
-        Username: <input type="text" name="username" />
-        <br />
-    </div>
-     <div class="boxed2">
-        Password: <input type="password" name="password" />
-        <br />
-    </div>
-      <div class="login">
-        <input type="submit" value="Login" width="20" length="30">
-    </div>
-  </form>
+    <form class="form-signin" action="includes/process_login.php" method="post">
+      <div class="text-center mb-4">
+        <!--<img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
+        <h1 class="h3 mb-3 font-weight-bold">Campus Snapshot</h1>
+        <p>Campus Snapshot is an online platform providing users with the ability to report and discuss incidents on their campus. <a href="register.php">Create an account today!</a></p>
       </div>
 
+      <div class="form-label-group">
+        <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
+        <label for="inputEmail">Username</label>
+      </div>
+
+      <div class="form-label-group">
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <label for="inputPassword">Password</label>
+      </div>
+
+      <button class="btn btn-lg btn-primary btn-block mb-3" type="submit">Sign in</button>
+
+      <?php include('tpl/footer.php'); ?>
+    </form>
   </body>
-  </html>
+</html>

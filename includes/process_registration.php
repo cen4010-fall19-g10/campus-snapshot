@@ -10,12 +10,11 @@ include("User/User.class.php");
 $user = new User();
 
 try {
-
   $user->register($_POST['username'], $_POST['password'], $_POST['school_id']);
   $user->login($_POST['username'], $_POST['password']);
-  header('Location: /');
+  header('Location: ../index.php');
 } catch(Exception $exception) {
-  header('Location: /');
+
 }
 
 ?>

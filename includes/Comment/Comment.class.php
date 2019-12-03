@@ -29,6 +29,15 @@ class Comment
         $stmt->execute();
     }
 
+    public function is_official() {
+        $stmt = Database::connection()->prepare("SELECT official FROM users WHERE username = ?");
+        $stmt->bindParam(1, $this->username);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['official'];
+    }
+
     public function get_username() {
         return $this->username;
     }
